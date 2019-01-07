@@ -1,0 +1,269 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication56;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.json.JSONArray;
+
+
+
+
+/**
+ *
+ * @author bharadwaj
+ */
+public class JavaApplication56 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws IOException  {
+        // TODO code application logic here
+        String file_Names="APBL.json,KCCB.json,AJHC.json,CLBL.json,BNSB.json,RSBL.json,FINO.json,UTIB.json,BARA.json,BOTM.json,SIBL.json,SAHE.json,SPCB.json,KNSB.json,DLXB.json,MAHB.json,VASJ.json,SABR.json,EBIL.json,IBKO.json,FDRL.json,SUTB.json,MSHQ.json,KVBL.json,IBBK.json,PUNB.json,SDCB.json,MUBL.json,NGSB.json,ABPB.json,DEOB.json,BKDN.json,RRBP.json,HVBK.json,ZSBL.json,NVNM.json,BACB.json,UBIN.json,CTBA.json,MCBL.json,SRCB.json,HPSC.json,GDCB.json,NBAD.json,OIBA.json,RATN.json,DOHB.json,PSIB.json,DCBL.json,JAKA.json,JSFB.json,TJSB.json,WBSC.json,RBIS.json,NKGS.json,VVSB.json,KANG.json,VARA.json,TSAB.json,DBSS.json,KUCB.json,SKSB.json,MVCB.json,KRTH.json,ZCBL.json,DICG.json,LAVB.json,FIRN.json,SVCB.json,ITBL.json,SYNB.json,YESB.json,SUNB.json,JJSB.json,NOSC.json,TBSB.json,SCBL.json,APMC.json,HSBC.json,KACE.json,NSPB.json,BDBL.json,JANA.json,ORBC.json,JSBP.json,KAIJ.json,CNRB.json,SBLS.json,KSCB.json,GGBK.json,MHCB.json,TNSC.json,CHAS.json,CRES.json,MDCB.json,CRUB.json,AMCB.json,GBCB.json,CBIN.json,UJVN.json,STCB.json,AUCB.json,IDIB.json,KJSB.json,APGV.json,CTCB.json,ICIC.json,ICBK.json,ABNA.json,SMBC.json,ADCB.json,ESFB.json,QNBA.json,SVSH.json,ABHY.json,TDCB.json,UTKS.json,HARC.json,INDB.json,KCBL.json,SOGE.json,SBIN.json,GSCB.json,JASB.json,KKBK.json,RSCB.json,BOFA.json,ESMF.json,UOVB.json,KLGB.json,CORP.json,MSNU.json,DLSC.json,BCBM.json,AIRP.json,NICB.json,PMEC.json,SJSB.json,RABO.json,CSBK.json,DNSB.json,PYTM.json,BBKM.json,KVGB.json,ASBL.json,ANDB.json,CCBL.json,ALLA.json,COSB.json,PUCB.json,NESF.json,APGB.json,MAHG.json,DEUT.json,MSCI.json,AKJB.json,ADCC.json,PMCB.json,BNPA.json,IDUK.json,CRLY.json,NATA.json,KDCB.json,ANZB.json,IPOS.json,SVBL.json,DMKJ.json,BARC.json,NUCB.json,HDFC.json,IOBA.json,IDFB.json,SIDC.json,NMCB.json,THRS.json,TGMB.json,KOEX.json,VSBL.json,PRTH.json,CIUB.json,UCBA.json,FSFB.json,NTBL.json,JSBL.json,PKGB.json,HCBL.json,TTCB.json,BCEY.json,IBKL.json,SMCB.json,NNSB.json,NBRD.json,SURY.json,KARB.json,VIJB.json,JIOP.json,NMGB.json,PJSB.json,BKID.json,AUBL.json,SIDB.json,WPAC.json,JPCB.json,UTBI.json,CITI.json,RNSB.json,BARB.json,SHBK.json,EIBI.json,TMBL.json,DURG.json";
+        String[] file_Names_arr=file_Names.split(",");
+        String bank_names_json=readFile(System.getProperty("user.home")+"/Desktop/banknames.json");
+        JSONObject jsonObj=new JSONObject(bank_names_json);
+        
+        JSONArray keys = jsonObj.names ();
+        
+        ArrayList hmm=new ArrayList();
+        
+        HashMap stateHmm=new HashMap();
+         
+        JSONObject jbObj=new JSONObject();
+        //for (int i = 0; i < file_Names_arr.length; ++i) 
+        for (int i = 0; i <1; ++i) 
+        {
+            
+            
+            String file_name_from=file_Names_arr[i].split(".j")[0];
+            file_name_from="SBIN";
+            
+           JSONArray states_array=new JSONArray();
+            
+           String key = keys.getString (i); // Here's your key
+           String value = jsonObj.getString (key); // Here's your value
+           File check_existance=new File(System.getProperty("user.home")+"/Desktop/by-bank/"+file_name_from+".json");
+           if(check_existance.exists() && !check_existance.isDirectory()) 
+           { 
+                String bank_details_json=readFile(System.getProperty("user.home")+"/Desktop/by-bank/"+file_name_from+".json");
+                JSONObject bank_details_obj=new JSONObject(bank_details_json);
+                JSONObject _bank=convert(bank_details_obj);
+                JSONArray bank_details_arr=_bank.names();
+                String bank_det_inner_str="";
+                //String bank_det_city_str="";
+                
+                HashMap hmm_oner=new HashMap();
+                
+                for(int l = 0; l<bank_details_arr.length(); l++)
+                {
+                    
+                    String bank_det_city_str="";
+                    String bank_det_inner=bank_details_arr.get(l).toString();
+                    
+                    JSONObject _bank_det=_bank.getJSONObject(bank_det_inner);
+                    JSONArray _bank_det_arr=_bank_det.names();
+                    for(int ne=0;ne<_bank_det_arr.length();ne++)
+                    {
+                        String ccccity_name=_bank_det_arr.get(ne).toString();
+                        if(ne== _bank_det_arr.length()-1)
+                        {
+                            bank_det_city_str+=_bank_det_arr.get(ne);
+                        }
+                        else
+                        {
+                            bank_det_city_str+=_bank_det_arr.get(ne)+",";
+                            
+                        }
+                        String file_name_corrected=file_name_from+"_"+ccccity_name+"_";
+                        file_name_corrected=file_name_corrected.replace(" ", "");
+                        //file_name_corrected=file_name_corrected.replace("_", "");
+                        file_name_corrected=file_name_corrected.replace("(", "");
+                        file_name_corrected=file_name_corrected.replace(",", "");
+                        file_name_corrected=file_name_corrected.replace(")", "");
+                        file_name_corrected=file_name_corrected.replace(":", "");
+                        file_name_corrected=file_name_corrected.replace(".", "");
+                        file_name_corrected=file_name_corrected.replace("-", "");
+                        file_name_corrected=file_name_corrected.replace("/", "");
+                        
+                        
+                        writeFile(_bank_det.getJSONArray(ccccity_name).toString(),file_name_corrected);
+                        //break;
+                        
+                    }
+                  
+                    
+                    
+                    
+                }
+                JSONObject new_json_for_hmm_oner=new JSONObject(hmm_oner);
+                
+               
+           }
+           else
+           {
+               //System.out.println(i);
+           }
+        }
+       
+        
+    }
+    
+    static JSONObject convert(JSONObject initial) {
+        Map<String, Map<String, List<Map<String, Object>>>> stateToCityToAddresses = new HashMap<>();
+
+        String[] codes = JSONObject.getNames(initial);
+
+        for (String code : codes) {
+
+            
+            JSONObject state = initial.getJSONObject(code);
+           
+            String stateName ="";
+            String cityName = "";
+            String ifsc = "";
+            String contact = "";
+            
+            if(state.get("BRANCH")!=null)
+            {
+                if(state.get("BRANCH") instanceof String)
+                {
+                contact = state.getString("BRANCH");
+                }
+            }
+            if(state.get("CITY")!=null)
+            {
+                if(state.get("CITY") instanceof String)
+                {
+                    cityName = state.getString("CITY");
+                }
+                
+            }
+            if(state.get("IFSC")!=null)
+            {
+                if(state.get("IFSC") instanceof String)
+                {
+                    ifsc = state.getString("IFSC");
+                }
+            }
+            if(state.get("STATE")!=null)
+            {
+                if(state.get("STATE") instanceof String)
+                {
+                    stateName = state.getString("STATE");
+                }
+            }
+
+            
+            List<Map<String, Object>> addresses = stateToCityToAddresses
+                .computeIfAbsent(stateName, sn -> new HashMap<>()) 
+                .computeIfAbsent(cityName, cn -> new ArrayList<>()); 
+
+            Map<String, Object> address = new HashMap<>();
+            address.put("ID", ifsc);
+            address.put("BRANCH", contact);
+            address.put("CITY", cityName);
+            address.put("CODE", code);
+            addresses.add(address);
+        }
+
+        JSONObject result = new JSONObject(stateToCityToAddresses);
+
+        
+
+        return result;
+    }
+    
+    public static String beutifyJson(String originalJson) throws IOException
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
+
+        JsonNode tree = objectMapper .readTree(originalJson);
+        String formattedJson = objectMapper.writeValueAsString(tree);
+        return formattedJson;
+    }
+    public static void writeFile(String message,String fileName)
+    {
+        BufferedWriter bw = null;
+                    FileWriter fw = null;
+
+                   try
+                   {
+                      
+                       new File(System.getProperty("user.home")+"/Desktop/TNN").mkdir();
+                       String file_name=System.getProperty("user.home")+"/Desktop/TNN/"+fileName+"_state.json";
+                       File file=new File(file_name);
+                       //System.out.println(file_name);
+                       boolean fvar = file.createNewFile();
+                       message=beutifyJson(message);
+                       fw = new FileWriter(file_name);
+			bw = new BufferedWriter(fw);
+			bw.write(message);
+                   }
+                   catch (Exception ex)
+                   {
+                       System.out.println(fileName);
+                       ex.printStackTrace();
+                       
+                   }
+                    finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+                                System.out.println(fileName);
+				ex.printStackTrace();
+
+			}
+                   }
+    }
+    public static String readFile(String fileName) throws IOException 
+    {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        try {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append("\n");
+                line = br.readLine();
+            }
+            return sb.toString();
+        } finally {
+            br.close();
+        }
+    }
+}
